@@ -1,36 +1,33 @@
-.jumbotron {
-  background: #532F8C;
+body{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: #FAFAFA;
+}
+#site-header {
+  width: 100%;
+  height: 40px;
+  padding: 0;
+  background: #D94F45;
   color: white;
-  padding-bottom: 80px;
+  text-align: center;
+  font-size: 130%;
 }
-.jumbotron .btn-primary {
-  background: #845ac7;
-  border-color: #845ac7;
+#site-header div a{
+  color: white;
+  text-decoration: none;
 }
-.jumbotron .btn-primary:hover {
-  background: #7646c1;
+#menu {
+  width: 60%;
+  margin-left: 20%;
 }
-.jumbotron p {
-  color: #d9ccee;
-  max-width: 75%;
-  margin: 1em auto 2em;
-}
-.jumbotron h1 {
-  font-size: 40px;
-}
-.navbar + .jumbotron {
-  margin-top: -20px;
-}
-.jumbotron .lang-logo {
+#menu div{
   display: block;
-  background: #B01302;
-  border-radius: 50%;
-  overflow: hidden;
-  width: 100px;
-  height: 100px;
-  margin: auto;
-  border: 2px solid white;
+  float: left;
+  padding-top: 0.5rem;
+  padding-left: 2.5rem;
 }
-.jumbotron .lang-logo img {
-  max-width: 100%;
+#site-brand {
+  width: 25%;
+  padding-left: 0;
 }

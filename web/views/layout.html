@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  {% include 'header.html' %}
+  <title>&spades;College</title>
+  <script src="https://use.fontawesome.com/ac52bb8fdd.js"></script>
+  <link rel="stylesheet" type="text/css" href="/web/css/main.css" />
 </head>
 
 <body>
-  {% include 'nav.html' %}
+  <div id="page">
+    {% include 'header.html' %}
 
-  {% block content %}{% endblock %}
+    {% block content %}{% endblock %}
 
-  {% include 'footer.html' %}
+    {% include 'footer.html' %}
+  </div>
 </body>
 </html>
