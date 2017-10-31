@@ -1,4 +1,4 @@
-# ♠College
+# ♠ College
 Is a task manager on the web that aims to help college students with their personal and courses' tasks in a simple and affective way.
 
 ## Getting Started
