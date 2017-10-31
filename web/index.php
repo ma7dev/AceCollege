@@ -18,9 +18,8 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 // Our web handlers
 
 $app->get('/', function() use($app) {
+  $app['monolog']->addDebug('logging output.');
   return $app['twig']->render('index.twig');
 });
-$app->get('/login', function() use($app) {
-  return $app['twig']->render('login.twig');
-});
+
 $app->run();
