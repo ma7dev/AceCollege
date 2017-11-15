@@ -19,6 +19,7 @@ class ComposerStaticInitd0c558f8dc208a06bb5b761d76d97497
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Component\\Routing\\' => 26,
+            'Symfony\\Component\\OptionsResolver\\' => 34,
             'Symfony\\Component\\HttpKernel\\' => 29,
             'Symfony\\Component\\HttpFoundation\\' => 33,
             'Symfony\\Component\\EventDispatcher\\' => 34,
@@ -37,6 +38,7 @@ class ComposerStaticInitd0c558f8dc208a06bb5b761d76d97497
         ),
         'C' => 
         array (
+            'Csanquer\\Silex\\PdoServiceProvider\\' => 34,
             'Cowsayphp\\' => 10,
         ),
     );
@@ -53,6 +55,10 @@ class ComposerStaticInitd0c558f8dc208a06bb5b761d76d97497
         'Symfony\\Component\\Routing\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/routing',
+        ),
+        'Symfony\\Component\\OptionsResolver\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/options-resolver',
         ),
         'Symfony\\Component\\HttpKernel\\' => 
         array (
@@ -89,6 +95,10 @@ class ComposerStaticInitd0c558f8dc208a06bb5b761d76d97497
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
+        ),
+        'Csanquer\\Silex\\PdoServiceProvider\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/csanquer/pdo-service-provider/src',
         ),
         'Cowsayphp\\' => 
         array (
