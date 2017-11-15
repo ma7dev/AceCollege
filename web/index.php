@@ -17,35 +17,34 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 
 // Our web handlers
 
+include 'connectvarsEECS.php';
+
 $app->get('/', function() use($app) {
   $app['monolog']->addDebug('logging output.');
   return $app['twig']->render('index.twig');
 });
-$dbopts = parse_url(getenv('DATABASE_URL'));
-$app->register(new Csanquer\Silex\PdoServiceProvider\Provider\PDOServiceProvider('pdo'),
-               array(
-                'pdo.server' => array(
-                   'driver'   => 'pgsql',
-                   'user' => $dbopts["user"],
-                   'password' => $dbopts["pass"],
-                   'host' => $dbopts["host"],
-                   'port' => $dbopts["port"],
-                   'dbname' => ltrim($dbopts["path"],'/')
-                   )
-               )
-);
-$app->get('/db/', function() use($app) {
-  $st = $app['pdo']->prepare('SELECT name FROM test_table');
-  $st->execute();
-
-  $names = array();
-  while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
-    $app['monolog']->addDebug('Row ' . $row['name']);
-    $names[] = $row;
-  }
-
-  return $app['twig']->render('database.twig', array(
-    'names' => $names
-  ));
+$app->get('/insert', function() use($app) {
+  $app['monolog']->addDebug('logging output.');
+  return $app['twig']->render('insert.twig');
+});
+$app->get('/list-users', function() use($app) {
+  $app['monolog']->addDebug('logging output.');
+  return $app['twig']->render('list-users.twig');
+});
+$app->get('/log-in', function() use($app) {
+  $app['monolog']->addDebug('logging output.');
+  return $app['twig']->render('log-in.twig');
+});
+$app->get('/search', function() use($app) {
+  $app['monolog']->addDebug('logging output.');
+  return $app['twig']->render('search.twig');
+});
+$app->get('/sign-up', function() use($app) {
+  $app['monolog']->addDebug('logging output.');
+  return $app['twig']->render('sign-up.twig');
+});
+$app->get('*', function() use($app) {
+  $app['monolog']->addDebug('logging output.');
+  return $app['twig']->render('404.twig');
 });
 $app->run();
