@@ -17,8 +17,6 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 
 // Our web handlers
 
-include 'connectvarsEECS.php';
-
 $app->get('/', function() use($app) {
   $app['monolog']->addDebug('logging output.');
   return $app['twig']->render('index.twig');

@@ -4,7 +4,7 @@
 <h1>list-users.twig</h1>
 <?php
 // change the value of $dbuser and $dbpass to your username and password
-	include 'connectvarsEECS.php';
+	include '../connectvarsEECS.php';
 	$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 	if (!$conn) {
 		die('Could not connect: ' . mysql_error());
@@ -20,6 +20,7 @@
 	echo "<h1>Table: $table </h1>";
 	echo "<table id='t01' border='1'><tr>";
 // printing table headers
+	{% for field in %}
 	for($i=0; $i<$fields_num; $i++) {
 		$field = mysqli_fetch_field($result);
 		echo "<td><b>$field->name</b></td>";
