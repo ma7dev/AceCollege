@@ -3,6 +3,8 @@
 {% block content %}
 <h1>list-users.twig</h1>
 <?php
+require('../vendor/autoload.php');
+
 // change the value of $dbuser and $dbpass to your username and password
 	include 'connectvarsEECS.php';
 	$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
