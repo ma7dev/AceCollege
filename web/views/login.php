@@ -25,7 +25,7 @@
 	<h2>Login</h2>
 
     <p>
-        <label for="uID">ID: </label>
+        <label for="uID">Email: </label>
         <input type="text" name="uID" id="uID">
     </p>
 
