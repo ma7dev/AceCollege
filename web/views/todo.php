@@ -1,14 +1,33 @@
 <?php
 
-require_once '../app/init.php';
+	$user = 0;
+	$table = Tasks;
 
-$query = "SELECT * FROM Tasks"
+	$query = "SELECT tID, Title, Completion  FROM $table WHERE $table.uID = $user";
 
-$result = mysqli_query($conn, $query);
+	$result = mysqli_query($conn, $query);
 	if (!$result) {
 		die("Query to show fields from table failed");
 	}
- 
+	// get number of columns in table
+		$fields_num = mysqli_num_fields($result);
+		echo "<h1>Table: $table </h1>";
+		echo "<table border='1'><tr>";
+
+	// printing table headers
+		for($i=0; $i<$fields_num; $i++) {
+			$field = mysqli_fetch_field($result);
+			echo "<td><b>$field->name</b></td>";
+		}
+		echo "</tr>\n";
+		while($row = mysqli_fetch_row($result)) {
+			echo "<tr>";
+			// $row is array... foreach( .. ) puts every element
+			// of $row to $cell variable
+			foreach($row as $cell)
+				echo "<td>$cell</td>";
+			echo "</tr>\n";
+		}
 ?>
 <!DOCTYPE html>
 <html>
