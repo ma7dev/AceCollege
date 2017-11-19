@@ -40,7 +40,7 @@
     </p>
     <p>
         <label for="tag">Tag:</label>
-        <input type="text" name="Tag" id="Tag">
+        <input type="text" name="tag" id="tag">
     </p>
 
     <input type="submit" value="Submit">
