@@ -1,10 +1,11 @@
 <?php
 
-	$user = 0;
+	require_once '../app/init.php';
+// This will changed to loged in user ID.	
+$user = 0;
+
 	$table = Tasks;
-
 	$query = "SELECT tID, Title, Completion  FROM $table WHERE $table.uID = $user";
-
 	$result = mysqli_query($conn, $query);
 	if (!$result) {
 		die("Query to show fields from table failed");
@@ -13,7 +14,6 @@
 		$fields_num = mysqli_num_fields($result);
 		echo "<h1>Table: $table </h1>";
 		echo "<table border='1'><tr>";
-
 	// printing table headers
 		for($i=0; $i<$fields_num; $i++) {
 			$field = mysqli_fetch_field($result);
