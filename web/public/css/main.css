@@ -1,69 +1,107 @@
 body{
-	background: #eceff0;
+  background: #FAFAFA;
 }
-
-body,
-input {
-	font: 1em;
-	color: #363639;
+div{
+  display: block;
 }
-
-a {
-	text-decoration: none;
-	border-bottom: 1px dashed #363639;
+.icon {
+  min-width: 25px;
+  min-height: 25px;
+  width: 25px;
+  height: 25px;
+  max-width: 25px;
+  max-height: 25px;
 }
-
+#site-header{
+  width: 100%;
+  height: 44px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  background: #FF3232;
+}
+#header-content{
+  width: 950px;
+  min-width: 950px;
+  max-width: 950px;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+#logo {
+  float:left;
+  height: 100%;
+  width: 260px;
+  min-width: 260px;
+  max-width: 260px;
+}
+#logo img {
+  width: 40px;
+  height: 40px;
+  margin: -16px 0 0 -13px;
+  margin-top: 5px;
+  margin-left: 5px;
+  border: 0px;
+  padding: 5px;
+  box-shadow: none;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+#navbar {
+  float:left;
+  height: 100%;
+  width: 690px;
+  min-width: 690px;
+  max-width: 690px;
+  text-align: right;
+}
+#navbar img {
+  width: 40px;
+  height: 40px;
+  margin: -16px 0 0 -13px;
+  margin-top: 5px;
+  margin-right: 5px;
+  border: 0px;
+  padding: 5px;
+  box-shadow: none;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
 #site-content {
-	background: #fff;
-	margin: 20px auto;
-	width: 100%;
-	max-width: 500px;
-	padding: 20px;
-	border-radius: 2px;
-	box-shadow: 30px 3px 0 rgba(0, 0, 0, 0, .1);
-	box-sizing: border-box;
+  margin-top: 44px;
+  height: 100%;
+  width: 950px;
+  min-width:950px;
+  max-width: 950px;
+  margin-top: 44px;
+  margin-left: auto;
+  margin-right: auto;
 }
-
-#site-content h1 {
-	margin: 0 0 10px 0;
+#secondary {
+  float:left;
+  position: fixed;
+  height: 100%;
+  width: 260px;
+  max-width: 260px;
+  background: #FAFAFA;
 }
-#site-todos {
-	margin: 0;
-	padding: 0;
-	list-style-type: none;
+#secondary-content {
+  margin-left: 30px;
+  margin-top: 30px;
 }
-#site-todos li,
-#input {
-	border: 0;
-	border-bottom: 1px dashed #ccc;
-	padding: 15px 0;
-}
-#site-todos li:hover .done-btn{
-		opacity: 1;
-}
-.done {
-	text-decoration: line-through;
-}
-#input {
-	width: 100%;
-}
-#input:focus {
-	outline: none;
-}
-.done-btn {
-	display: inline-block;
-	font-size: 0.8em;
-	background: #d9dfe1;
-	color: #363639;
-	padding: 3px 6px;
-	border: 0;
-	opacity: 0.4;
-}
-#submit {
-	background: #fff;
-	padding: 5px 10px;
-	border: 1px solid #ddd;
-	width: 100%;
-	margin-top: 10px;
-	box-shadow: 3px 3px 0 #ddd;
+#primary {
+  float: left;
+  margin-left: 260px;
+  height: 100%;
+  background: #FFFFFF;
+  width: 640px;
+  min-width: 640px;
+  max-width: 640px;
+  padding-left: 50px;
+  padding-top: 50px;
+  border-left: solid 1px #F1F1F1;
+  border-right: solid 1px #F1F1F1;
 }
