@@ -34,7 +34,7 @@
 // Get the other values
 $user = 0;
 
-		$query = "(SELECT Count(tID) From Tasks)";
+		$query = "(SELECT (MAX(tID)+1) From Tasks)";
 		$result = mysqli_query ($conn, $query) ;
 		$tID = mysqli_fetch_row($result);
 		echo "$tID[0]";
