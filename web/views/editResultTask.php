@@ -44,6 +44,9 @@
 			echo "ERROR: Could not able to execute $query. " . mysqli_error($conn);
 		}
 
+		$query = "CALL TasksDeleteCompletion";
+		mysqli_query($conn, $query);
+	  
 		echo "WORKING!!!";
 	?>
   </div>
