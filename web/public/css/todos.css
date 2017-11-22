@@ -3,6 +3,7 @@
 }
 #date-opt li {
 	margin-top: 5px;
+	padding: 5px;
 	text-decoration: none;
 	font: black;
 }
@@ -94,13 +95,14 @@
 }
 
 #item-add button {
-	background-color: #FF3232;
-  border: 1px solid #FF3232;
+	background-color: #DD4B39;
+  border: 1px solid #DD4B39;
   text-decoration: none;
   cursor: pointer;
 	padding: 5px;
 	padding-left: 10px;
 	padding-right: 10px;
+	border-radius: 0 0 5px 5px;
 }
 #item-add button:hover {
 	background-color: #B22323;
@@ -127,10 +129,70 @@
   text-decoration: none;
   cursor: pointer;
 }
-#display-todos button:hover {
-	background-color: gray;
+#display-todos .complete-btn {
+	border-radius: 100%;
+	width: 20px;
+	min-width: 20px;
+	max-width: 20px;
+	height: 20px;
+	min-height: 20px;
+	max-height: 20px;
+	margin-right: 5px;
 }
-.right-actions {
+#display-todos .todos-item .item-1{
+	background-color: #F5E5E5;
+	border: 2px solid #AD0303;
+}
+#display-todos .todos-item .item-1:hover{
+	background-color: #e7c0c0;
+}
+#display-todos .todos-item .item-2{
+	background-color: #FEF2E8;
+	border: 2px solid #F98F37;
+}
+#display-todos .todos-item .item-2:hover{
+	background-color: #fcd6b7;
+}
+#display-todos .todos-item .item-3{
+	background-color: #FFF6E1;
+	border: 2px solid #FCC12B;
+}
+#display-todos .todos-item .item-3:hover{
+	background-color: #ffe7ae;
+}
+#display-todos .todos-item .item-4{
+	background-color: white;
+	border: 2px solid #DDDDDD;
+}
+#display-todos .todos-item .item-4:hover{
+	background-color: #f1f1f1;
+}
+#display-todos .todos-item {
+	margin-bottom: 12px;
 	width: 100%;
-	text-align: right;
+}
+#display-todos .item-details {
+	border-bottom: 1px solid #DDDDDD;
+	padding: 5px;
+	width: auto;
+}
+#display-todos .item-tag {
+	background: rgba(50,50,255,0.5);
+	padding: 1px;
+	border-radius: 5px 5px 5px 5px;
+}
+#display-todos .item-date {
+	background: rgba(0,0,0,0.5);
+	padding: 1px;
+	border-radius: 5px 5px 5px 5px;
+}
+.list-btn .icon{
+	/*display: hidden;*/
+	margin-left: auto;
+	width: 20px;
+	min-width: 20px;
+	max-width: 20px;
+	height: 20px;
+	min-height: 20px;
+	max-height: 20px;
 }

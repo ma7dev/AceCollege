@@ -6,11 +6,11 @@
   $dateAssigned = mysqli_real_escape_string($conn, $_POST['dateAssigned']);
 // Get the other values
   $user = 0;
-  $query = "(SELECT Count(tID) From Tasks)";
+  $query = "(SELECT (MAX(tID)+1) From Tasks)";
   $result = mysqli_query ($conn, $query) ;
   $tID = mysqli_fetch_row($result);
 // Open the table to insert
-  $query = "INSERT INTO Tasks VALUES ('$tID[0]', NULL, 'N', '$title' , '$dateAssigned', 4, '$user', NULL)" ;
+  $query = "INSERT INTO Tasks VALUES ('$tID[0]', NULL, 'N', '$title' , '$dateAssigned', 4, '$user', 'personal')" ;
   if(mysqli_query($conn, $query)){
     echo "Record added successfully.";
     echo "<script>window.location = '$url'</script>";

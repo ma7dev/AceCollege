@@ -19,7 +19,7 @@
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
   <link rel="stylesheet" href="../public/css/main.css">
-	<link rel="stylesheet" href="../public/css/todos.css">
+	<link rel="stylesheet" href="../public/css/addNewTodo.css">
 </head>
 <body>
   <div id="site-header">
@@ -45,7 +45,7 @@
     </div>
     <div>
         <label for="tag">Tag:</label> <br>
-        <input type="radio" name="tag" value="Personal" checked required> Personal<br>
+        <input type="radio" name="tag" value="Personal" required> Personal<br>
         <input type="radio" name="tag" value="CS-361"> CS-361<br>
         <input type="radio" name="tag" value="CS-340"> CS-340<br>
         <input type="radio" name="tag" value="CS-372"> CS-372<br>

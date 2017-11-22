@@ -9,9 +9,10 @@
 		$tag = mysqli_real_escape_string($conn, $_POST['tag']);
 // Get the other values
     $user = 0;
-		$query = "(SELECT Count(tID) From Tasks)";
+		$query = "(SELECT (MAX(tID)+1) From Tasks)";
 		$result = mysqli_query ($conn, $query) ;
 		$tID = mysqli_fetch_row($result);
+
 // Open the table to insert
 		$query = "INSERT INTO Tasks VALUES ('$tID[0]', '$description', 'N', '$title' , '$dateAssigned', '$magnitude', '$user', '$tag')" ;
 		if(mysqli_query($conn, $query)){
