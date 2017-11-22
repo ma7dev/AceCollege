@@ -9,6 +9,11 @@
 	if (!$result) {
 		die("Query to show fields from table failed");
 	}
+  $courses = "SELECT Courses.cID, Courses.Department, Courses.CourseCode  FROM Courses, Enrollment WHERE Courses.cID = Enrollment.cID AND Enrollment.StudentID = $user";
+	$coursesResult = mysqli_query($conn, $courses);
+	if (!$coursesResult) {
+		die("Query to show fields from table failed");
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -35,36 +40,30 @@
 		</div>
   <div id="site-content">
     <form action="../app/insertTask.php" method="post">
-    <div>
-        <label for="title">Title: </label>
-        <input type="text" name="title" id="title" required>
-    </div>
-    <div>
-        <label for="dateAssigned">Date Assigned:</label>
-        <input type="date" name="dateAssigned" id="dateAssigned" required>
-    </div>
-    <div>
-        <label for="tag">Tag:</label> <br>
-        <input type="radio" name="tag" value="Personal" required> Personal<br>
-        <input type="radio" name="tag" value="CS-361"> CS-361<br>
-        <input type="radio" name="tag" value="CS-340"> CS-340<br>
-        <input type="radio" name="tag" value="CS-372"> CS-372<br>
-        <input type="radio" name="tag" value="MTH-351"> MTH-351
-    </div>
-    <div>
-        <label for="description">Description:</label>
-        <input type="text" name="description" id="description" required>
-    </div>
-    <div>
-        <label for="magnitude">Magnitude (1-4):</label><input type="number" name="quantity" min="1" max="4" required>
-    </div>
-    <input type="submit" value="Submit">
-
-    <br></br>
-</form>
-  </div>
-  <div id="site-footer">
-
+	    <div>
+	        <label for="title">Title: </label>
+	        <input type="text" name="title" id="title" required>
+	    </div>
+	    <div>
+	        <label for="dateAssigned">Date Assigned:</label>
+	        <input type="date" name="dateAssigned" id="dateAssigned" required>
+	    </div>
+	    <div>
+	        <label for="tag">Tag:</label> <br>
+	        <input type="radio" name="tag" value="personal" required checked> Personal<br>
+					<?php while($coursesRow = mysqli_fetch_row($coursesResult)) { ?>
+	            <input type="radio" name="tag" value="<?php echo $coursesRow[0]?>"> <?php echo "$coursesRow[1]-$coursesRow[2]"?><br>
+	        <?php } ?>
+	    </div>
+	    <div>
+	        <label for="description">Description:</label>
+	        <input type="text" name="description" id="description">
+	    </div>
+	    <div>
+	        <label for="magnitude">Magnitude (1-4):</label><input type="number" name="magnitude" min="1" max="4" value="4" required>
+	    </div>
+	    <input type="submit" value="Submit">
+		</form>
   </div>
 </body>
 </html>

@@ -41,7 +41,7 @@
 	  </div>
 		</div>
   <div id="site-content">
-    <form action="../app/updateTask.php" method="post">
+    <form action="../app/updateTask.php?name=<?php echo $tID ?>" method="post">
     <div>
         <label for="title">Title: </label>
         <input type="text" name="title" id="title" value="<?php echo $print[1] ?>" required>
@@ -67,7 +67,7 @@
     </div>
     <div>
         <label for="description">Description:</label>
-        <input type="text" name="description" id="description" value="<?php echo $print[4] ?>" required>
+        <input type="text" name="description" id="description" value="<?php echo $print[4] ?>">
     </div>
     <div>
         <label for="magnitude">Magnitude (1-4):</label><input type="number" name="magnitude" min="1" max="4" value="<?php echo $print[5] ?>"  required>
