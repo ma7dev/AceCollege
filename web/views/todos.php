@@ -36,12 +36,9 @@
 			$tagConditions = $tagConditions . " OR Tasks.tag = '" . $tagsForSort[$i][0] . "'";
 		}
 	}
-
-	echo "$tagConditions" ;
-
-
 	// This will changed to loged in user ID.
 	$user = 0;
+// $user = $_SESSION['user_id'];
 	$query = "SELECT tID, Title, Magnitude, DateAssigned, tag  FROM Tasks WHERE Tasks.uID = $user AND Tasks.Completion = 'N'$dateCondition AND ($tagConditions)";
 	$result = mysqli_query($conn, $query);
 	if (!$result) {
