@@ -1,0 +1,12 @@
+.enroll-btn{
+  background: #00E500;
+}
+.enroll-btn:hover {
+  background: #00B700
+}
+.enrolled-btn{
+  background: #FF0000;
+}
+.enrolled-btn:hover {
+  background: #CC0000;
+}

@@ -1,15 +1,8 @@
 <?php
 
 	require_once '../app/init.php';
-	// This will changed to loged in user ID.
-	$user = 0;
-	$table = Tasks;
-	$query = "SELECT tID, Title, Completion, DateAssigned  FROM $table WHERE $table.uID = $user";
-	$result = mysqli_query($conn, $query);
-	if (!$result) {
-		die("Query to show fields from table failed");
-	}
-  $courses = "SELECT Courses.cID, Courses.Department, Courses.CourseCode  FROM Courses, Enrollment WHERE Courses.cID = Enrollment.cID AND Enrollment.StudentID = $user";
+	$user = $_GET['userID'];
+  $courses = "SELECT Courses.cID, Courses.Department, Courses.CourseCode  FROM Courses, Enrollment WHERE Courses.cID = Enrollment.cID AND Enrollment.uID = $user";
 	$coursesResult = mysqli_query($conn, $courses);
 	if (!$coursesResult) {
 		die("Query to show fields from table failed");
@@ -30,7 +23,7 @@
   <div id="site-header">
 		<div id="header-content">
 			<div id="logo">
-				<a href="todos.php"><img class="icon" src="../public/icons/spade.svg" alt=""></a>
+				<a href="todos.php?userID=<?php echo $user ?>"><img class="icon" src="../public/icons/spade.svg" alt=""></a>
 			</div>
 	    <div id="navbar">
 				<a href="addNewTodo.php"><img class="icon" src="../public/icons/plus.svg" alt="" style="margin-right:200px;"></a>
@@ -39,7 +32,7 @@
 	  </div>
 		</div>
   <div id="site-content">
-    <form action="../app/insertTask.php" method="post">
+    <form action="../app/insertTask.php?userID=<?php echo $user ?>" method="post">
 	    <div>
 	        <label for="title">Title: </label>
 	        <input type="text" name="title" id="title" required>

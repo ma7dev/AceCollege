@@ -11,7 +11,7 @@
 	if(($dateSort == NULL && $dateSort == "") && ($tagsSort == NULL && $tagsSort == "")){
 		$dateSort = "inbox-opt";?>
 		<script type="text/javascript">
-			window.location.href ="todos.php?userID=<?php echo $user ?>&date=<?php echo $dateSort ?>";
+			window.location.href ="studygroup.php?userID=<?php echo $user ?>&date=<?php echo $dateSort ?>";
 		</script>
 	<?php }
 	$tagsSortAfter = NULL;
@@ -21,11 +21,11 @@
 		$dateCondition = '';
 	}
 	elseif($dateSort == 'today-opt') {
-		$dateCondition = ' AND datediff(Tasks.DateAssigned, CURRENT_TIMESTAMP) = 0';
+		$dateCondition = ' AND datediff(StudyGroups.DateAssigned, CURRENT_TIMESTAMP) = 0';
 	}
 	else {
-		$dateCondition = ' AND (datediff(Tasks.DateAssigned, CURRENT_TIMESTAMP) < 7
-		AND (datediff(Tasks.DateAssigned, CURRENT_TIMESTAMP) >=0))';
+		$dateCondition = ' AND (datediff(StudyGroups.DateAssigned, CURRENT_TIMESTAMP) < 7
+		AND (datediff(StudyGroups.DateAssigned, CURRENT_TIMESTAMP) >=0))';
 	}
 	$tagsForSort = explode(",", $tagsSort);
 	$tagConditions = NULL;
@@ -33,20 +33,20 @@
 		for($i = 0; $i < count($tagsForSort); $i++) {
 			$tagsForSort[$i] = explode("-opt", $tagsForSort[$i]);
 			if ($i == 0) {
-				$tagConditions = "Tasks.tag = '" . $tagsForSort[$i][0] . "'";
+				$tagConditions = "StudyGroups.cID = '" . $tagsForSort[$i][0] . "'";
 			}
 			else {
-				$tagConditions = $tagConditions . " OR Tasks.tag = '" . $tagsForSort[$i][0] . "'";
+				$tagConditions = $tagConditions . " OR StudyGroups.cID = '" . $tagsForSort[$i][0] . "'";
 			}
 		}
 	}
 	else{
-		$tagConditions = "Tasks.tag=NULL";
+		$tagConditions = "StudyGroups.cID=NULL";
 	}
-	$query = "SELECT tID, Title, Magnitude, DateAssigned, tag  FROM Tasks WHERE Tasks.uID = $user AND Tasks.Completion = 'N' $dateCondition AND ($tagConditions)";
+	$query = "SELECT sgID, uID, Title, DateAssigned, cID, Location, Description FROM StudyGroups WHERE ($tagConditions) $dateCondition";
 	$result = mysqli_query($conn, $query);
 	if (!$result) {
-		die("Query to show fields from table failedqqqq");
+		die("Query to show fields from table failedsss");
 	}
 	$courses = "SELECT Courses.Department, Courses.CourseCode, Courses.cID  FROM Courses, Enrollment WHERE Courses.cID = Enrollment.cID AND Enrollment.uID = $user";
 	$coursesResult = mysqli_query($conn, $courses);
@@ -57,22 +57,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Todo list - AceCollege</title>
+  <title>Study Groups - AceCollege</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
   <link rel="stylesheet" href="../public/css/main.css">
-	<link rel="stylesheet" href="../public/css/todos.css">
+	<link rel="stylesheet" href="../public/css/studygroup.css">
 </head>
 <body>
   <div id="site-header">
 		<div id="header-content">
 			<div id="logo">
-				<a href="todos.php?userID=<?php echo $user ?>"><img class="icon" src="../public/icons/spade.svg" alt=""></a>
+				<a href="studygroup.php?userID=<?php echo $user ?>"><img class="icon" src="../public/icons/spade.svg" alt=""></a>
 			</div>
 	    <div id="navbar">
-				<a href="addNewTodo.php?userID=<?php echo $user ?>"><img class="icon" src="../public/icons/plus.svg" alt="" style="margin-right:200px;"></a>
+				<a href="addNewStudyGroup.php?userID=<?php echo $user ?>"><img class="icon" src="../public/icons/plus.svg" alt="" style="margin-right:200px;"></a>
 				<img id="settings-btn" class="icon" src="../public/icons/whmcs.svg" alt="">
 				<ul class="dropdown-content" style="list-style:none;">
 					<li id="editInfo-btn">Edit Personal Information</li>
@@ -84,7 +84,7 @@
   <div id="site-content">
 		<div id="secondary">
 			<div id="secondary-content">
-				<a href="studygroup.php?userID=<?php echo $user ?>">Go to Study Group Page</a>
+				<a href="todos.php?userID=<?php echo $user ?>">Go to To-do List Page</a>
 				<ul id="date-opt">
 					<li class="data-opt" id="inbox-opt"><img class="icon" src="../public/icons/inbox.svg" alt=""> Inbox</li>
 					<li class="data-opt" id="today-opt"><img class="icon" src="../public/icons/calendar.svg" alt=""> Today</li>
@@ -92,10 +92,6 @@
 				</ul>
 				<hr>
 				<div id="tags-opt">
-					<label class="tag-opt" id="personal-opt">Personal
-	  				<input type="checkbox">
-					  <span class="tag-checkmark"></span>
-					</label>
 					<?php while($coursesRow = mysqli_fetch_row($coursesResult)) { ?>
 					<label class="tag-opt" id="<?php echo $coursesRow[2]?>-opt"><?php echo "$coursesRow[0]-$coursesRow[1]"?>
 					  <input type="checkbox">
@@ -111,44 +107,59 @@
 		</div>
 		<div id="primary">
 			<div id="primary-content">
-				<form id="item-add" action="../app/addQuickTask.php?userID=<?php echo $user ?>" method="post">
-					<div id="item-input">
-						<input id="input-title" type="text" name="title" placeholder="Quick Add Task" autocomplete="off" required>
-						<input id="input-date" type="date" name="dateAssigned" placeholder="Schedule" autocomplete="off" required>
-					</div>
-					<button type="submit" id="submit" value="add">Add Task</button>
-				</form>
-		    <ul id="display-todos">
-					<?php while($row = mysqli_fetch_row($result)) { ?>
-			      <li class="todos-item">
-							<button class="complete-btn item-<?php echo $row[2]?>"></button>
-							<span class="item-details">
-								<span class="item-title"><?php echo $row[1]?></span>
-								<?php
-									if($row[4] != 'personal'){
-										$getTag = "SELECT Courses.Department, Courses.CourseCode   FROM Courses WHERE Courses.cID = $row[4]";
-										$getTagName = mysqli_query($conn, $getTag);
-										$getTagName = mysqli_fetch_row($getTagName);
-								?>
+		    <ul id="display-studygroup">
+					<?php if($tagsSort!=NULL){ ?>
+						<?php while($row = mysqli_fetch_row($result)) { ?>
+				      <li class="studygroup-item">
+								<span class="item-details">
+									<span class="item-title"><?php echo $row[2]?></span>
+									<?php
+											$getTag = "SELECT Courses.Department, Courses.CourseCode   FROM Courses WHERE Courses.cID = $row[4]";
+											$getTagName = mysqli_query($conn, $getTag);
+											$getTagName = mysqli_fetch_row($getTagName);
+									?>
 									<span class="item-tag "><?php echo "$getTagName[0]-$getTagName[1]" ?></span>
-								<?php } else {?>
-									<span class="item-tag "><?php echo $row[4] ?></span>
-								<?php } ?>
-								<?php $time = strtotime($row[3]) ?>
-								<?php if(date('Y',$time) == date("Y")){?>
-									<span class="item-date"><?php echo date('m/d',$time)?></span>
-								<?php }else{?>
-									<span class="item-date"><?php echo date('m/d/Y',$time)?></span>
-								<?php }?>
-							</span>
-							<button class="list-btn"><img class="icon" src="../public/icons/ellipsis-h.svg" alt=""></button>
-							<ul class="dropdown-content" id="<?php echo $row[0] ?>">
-								<li class="edit-btn">Edit Task</li>
-								<li class="remove-btn">Remove Task</li>
-							</ul>
-			      </li>
-					<?php }?>
-		    </ul>
+									<?php $time = strtotime($row[3]) ?>
+									<?php if(date('Y',$time) == date("Y")){?>
+										<span class="item-date"><?php echo date('m/d',$time)?></span>
+									<?php }else{?>
+										<span class="item-date"><?php echo date('m/d/Y',$time)?></span>
+									<?php }?>
+								</span>
+								<span class="item-description ">
+									<span><?php echo $row[6] ?></span>
+								</span>
+								<span class="item-rest ">
+									<span>
+										<?php echo $row[5] ?>
+									</span>
+								</span>
+								<button class="list-btn"><img class="icon" src="../public/icons/ellipsis-h.svg" alt=""></button>
+								<ul class="dropdown-content" id="<?php echo $row[0] ?>">
+									<?php if($user == $row[1]) { ?>
+										<li class="edit-btn">Edit Study Group</li>
+										<li class="remove-btn">Remove Study Group</li>
+									<?php }else{?>
+										<?php
+											$getStatus = "SELECT Invite.status FROM Invite WHERE Invite.sgID = $row[0] AND Invite.uID = $user";
+											$getStatusName = mysqli_query($conn, $getStatus);
+											if (!$getStatusName) {
+												die("Query to show fields from table failedsaas");
+											}
+											$getStatusName = mysqli_fetch_row($getStatusName);
+										?>
+										<?php if($getStatusName[0] == 0 || $getStatusName[0] == 1){ ?>
+											<li class="join-btn">Join Study Group</li>
+										<?php }else if($getStatusName[0] == 2){?>
+											<li class="leave-btn">Leave Study Group</li>
+										<?php }?>
+									<?php }?>
+									<li class="invite-btn">Invite Someone</li>
+								</ul>
+				      </li>
+						<?php }?>
+			    </ul>
+				<?php }?>
 			</div>
 		</div>
   </div>
@@ -157,7 +168,7 @@
 		for (var i = 0; i < removeBtn.length; i++) {
 	    removeBtn[i].addEventListener('click', function(){
 				var removeByID = $(this).closest('ul').attr('id');
-				window.location.href = "../app/deleteTask.php?userID=<?php echo $user ?>&taskID=" +removeByID;
+				window.location.href = "../app/deleteStudyGroup.php?userID=<?php echo $user ?>&sgID=" +removeByID;
 	    });
 		}
 
@@ -165,7 +176,31 @@
 		for (var i = 0; i < editBtn.length; i++) {
 		   editBtn[i].addEventListener('click', function(){
 				var editByID = $(this).closest('ul').attr('id');
-				window.location.href = "editTask.php?userID=<?php echo $user ?>&taskID=" +editByID;
+				window.location.href = "editStudyGroup.php?userID=<?php echo $user ?>&sgID=" +editByID;
+		   });
+		}
+
+		var joinBtn = document.querySelectorAll(".join-btn");
+		for (var i = 0; i < joinBtn.length; i++) {
+		   joinBtn[i].addEventListener('click', function(){
+				var joinBtnByID = $(this).closest('ul').attr('id');
+				window.location.href = "../app/enrollStudyGroup.php?userID=<?php echo $user ?>&sgID=" +joinBtnByID;
+		   });
+		}
+
+		var leaveBtn = document.querySelectorAll(".leave-btn");
+		for (var i = 0; i < leaveBtn.length; i++) {
+		   leaveBtn[i].addEventListener('click', function(){
+				var leaveBtnByID = $(this).closest('ul').attr('id');
+				window.location.href = "../app/leaveStudyGroup.php?userID=<?php echo $user ?>&sgID=" +leaveBtnByID;
+		   });
+		}
+
+		var inviteBtn = document.querySelectorAll(".invite-btn");
+		for (var i = 0; i < inviteBtn.length; i++) {
+		   inviteBtn[i].addEventListener('click', function(){
+				var inviteBtnByID = $(this).closest('ul').attr('id');
+				window.location.href = "inviteStudyGroup.php?userID=<?php echo $user ?>&sgID=" +inviteBtnByID;
 		   });
 		}
 
@@ -194,17 +229,17 @@
 					<?php $tagsSortAfter = explode(",", $tagsSort); ?>
 				<?php } ?>
 				<?php if(is_array($tagsSortAfter)){ ?>
-					var urlWanted = "todos.php?userID=<?php echo $user ?>&date=" +dateOptBtnByID+"&tags=<?php echo $tagsSortAfter[0] ?>";
+					var urlWanted = "studygroup.php?userID=<?php echo $user ?>&date=" +dateOptBtnByID+"&tags=<?php echo $tagsSortAfter[0] ?>";
 					<?php for($i = 1; $i < count($tagsSortAfter); $i++){ ?>
 			      var tags = "<?php echo $tagsSortAfter[$i] ?>";
 						urlWanted = urlWanted + "," + tags;
 					<?php } ?>
 					window.location.href = urlWanted;
 				<?php }else if(($tagsSort != NULL && $tagsSort != "")){ ?>
-					var urlWanted = "todos.php?userID=<?php echo $user ?>&date=" +dateOptBtnByID+"&tags=<?php echo $tagsSort ?>";
+					var urlWanted = "studygroup.php?userID=<?php echo $user ?>&date=" +dateOptBtnByID+"&tags=<?php echo $tagsSort ?>";
 					window.location.href = urlWanted;
 				<?php }else{ ?>
-					var urlWanted = "todos.php?userID=<?php echo $user ?>&date=" +dateOptBtnByID;
+					var urlWanted = "studygroup.php?userID=<?php echo $user ?>&date=" +dateOptBtnByID;
 					window.location.href = urlWanted;
 				<?php } ?>
 		   });
@@ -224,14 +259,14 @@
 			<?php if(is_array($tagsSortAfter)){ ?>
 				var goalFind = "<?php echo $tagsSortAfter[0] ?>";
 				if(goalFind == tagsOptBtnByID){
-					var urlWanted = "todos.php?userID=<?php echo $user ?>&date=" +date+"&tags=<?php echo $tagsSortAfter[1] ?>";
+					var urlWanted = "studygroup.php?userID=<?php echo $user ?>&date=" +date+"&tags=<?php echo $tagsSortAfter[1] ?>";
 					<?php for($i = 2; $i < count($tagsSortAfter); $i++){ ?>
 				     var tags = "<?php echo $tagsSortAfter[$i] ?>";
 						urlWanted = urlWanted + "," + tags;
 					<?php } ?>
 					window.location.href = urlWanted;
 				}
-				var urlWanted = "todos.php?userID=<?php echo $user ?>&date=" +date+"&tags=<?php echo $tagsSortAfter[0] ?>";
+				var urlWanted = "studygroup.php?userID=<?php echo $user ?>&date=" +date+"&tags=<?php echo $tagsSortAfter[0] ?>";
 				<?php for($i = 1; $i < count($tagsSortAfter); $i++){ ?>
 					var goalFind = "<?php echo $tagsSortAfter[$i] ?>";
 					if(goalFind != tagsOptBtnByID){
@@ -250,14 +285,14 @@
 				var goalFind = "<?php echo $tagsSort ?>";
 				var urlWanted = "";
 				if(goalFind == tagsOptBtnByID){
-					urlWanted = "todos.php?userID=<?php echo $user ?>&date=" +date;
+					urlWanted = "studygroup.php?userID=<?php echo $user ?>&date=" +date;
 				}
 				else {
-					urlWanted = "todos.php?userID=<?php echo $user ?>&date=" +date+"&tags=<?php echo $tagsSort ?>,"+tagsOptBtnByID;
+					urlWanted = "studygroup.php?userID=<?php echo $user ?>&date=" +date+"&tags=<?php echo $tagsSort ?>,"+tagsOptBtnByID;
 				}
 				window.location.href = urlWanted;
 			<?php }else { ?>
-				var urlWanted = "todos.php?userID=<?php echo $user ?>&date=" +date+"&tags="+tagsOptBtnByID;
+				var urlWanted = "studygroup.php?userID=<?php echo $user ?>&date=" +date+"&tags="+tagsOptBtnByID;
 				window.location.href = urlWanted;
 			<?php } ?>
 		 });
@@ -282,6 +317,7 @@
 			 window.location.href = urlWanted;
 		 });
 		}
+		console.log( <?php echo "$getStatusName[0]" ?> )
 	</script>
 </body>
 </html>

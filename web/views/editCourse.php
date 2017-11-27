@@ -41,7 +41,7 @@
 	  </div>
 		</div>
   <div id="site-content">
-    <form action="../app/updateTask.php?userID=<?php echo $user ?>&task=<?php echo $tID ?>" method="post">
+    <form action="../app/updateCourse.php?userID=<?php echo $user ?>&task=<?php echo $tID ?>" method="post">
     <div>
         <label for="title">Title: </label>
         <input type="text" name="title" id="title" value="<?php echo $print[1] ?>" required>
