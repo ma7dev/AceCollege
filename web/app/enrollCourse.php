@@ -1,7 +1,7 @@
 <?php
   require_once 'init.php';
-  $user = $_GET['userID'];
-  $url = "../views/joinNewCourse.php?userID=$user";
+  $user = $_SESSION['user_id'];
+  $url = "../views/joinNewCourse.php?";
   $course = $_GET['courseID'];
   $query = "INSERT INTO Enrollment VALUES ('$user', '$course')" ;
   if(mysqli_query($conn, $query)){

@@ -1,7 +1,7 @@
 <?php
 		require_once '../app/init.php';
-	  $user = $_GET['userID'];
-	  $url = "../views/studygroup.php?userID=$user";
+	  $user = $_SESSION['user_id'];
+	  $url = "../views/studygroup.php?";
 // Assign the input to the proper variable.
 		$tID = $_GET['sgID'];
 // Open the table to insert

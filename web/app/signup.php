@@ -12,12 +12,20 @@
 		$salt = bin2hex(openssl_random_pseudo_bytes(9));
 		$password = sha1($password.$salt);
 // Insert the value
-    $query = "INSERT INTO Users VALUES ('$uID[0]', '$email', '$name', '$birthday' , '$password', '$salt')" ;
-    if(mysqli_query($conn, $query)){
-      $_SESSION['user_id'] = $uID[0];
-			 $url = "../views/todos.php?userID=".$uID[0]."&date=inbox-opt";
-			echo "<script>window.location = '$url'</script>";
-    } else{
-      echo "ERROR: Could not able to execute $query. " . mysqli_error($conn);
-    };
+		$check = "SELECT email FROM Users WHERE email = '$email'";
+		$result = mysqli_query($conn, $check);
+		$tuple = mysqli_fetch_array($result);
+		if($tuple[0] != $email){
+			$query = "INSERT INTO Users VALUES ('$uID[0]', '$email', '$name', '$birthday' , '$password', '$salt')" ;
+	    if(mysqli_query($conn, $query)){
+	      $_SESSION['user_id'] = $uID[0];
+				 $url = "../views/todos.php?date=inbox-opt";
+				echo "<script>window.location = '$url'</script>";
+	    } else{
+	      echo "ERROR: Could not able to execute $query. " . mysqli_error($conn);
+	    };
+		}
+		else{
+			echo "ERROR: This email (". $email .") have been used before, please use another email.";
+		}
 	?>

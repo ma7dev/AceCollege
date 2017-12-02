@@ -1,11 +1,9 @@
 <?php
-
 	require_once '../app/init.php';
 	// This will changed to loged in user ID.
-	$user = $_GET['userID'];
-	$table = Tasks;
-  $tID = $_GET['task'];
-	$query = "SELECT tID, Title, DateAssigned, tag, Description, Magnitude  FROM $table WHERE tID = $tID";
+	$user = $_SESSION['user_id'];
+  $tID = $_GET['taskID'];
+	$query = "SELECT tID, Title, DateAssigned, tag, Description, Magnitude  FROM Tasks WHERE tID = $tID";
 	$result = mysqli_query($conn, $query);
 	if (!$result) {
 		die("Query to show fields from table failed");
@@ -20,19 +18,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Todo list - AceCollege</title>
+  <title>Edit a Task - AceCollege</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
   <link rel="stylesheet" href="../public/css/main.css">
-	<link rel="stylesheet" href="../public/css/addNewTodo.css">
+	<link rel="stylesheet" href="../public/css/todos.css">
 </head>
 <body>
   <div id="site-header">
 		<div id="header-content">
 			<div id="logo">
-				<a href="todos.php?userID=<?php echo $user ?>"><img class="icon" src="../public/icons/spade.svg" alt=""></a>
+				<a href="todos.php?"><img class="icon" src="../public/icons/spade.svg" alt=""></a>
 			</div>
 	    <div id="navbar">
 				<a href="addNewTodo.php"><img class="icon" src="../public/icons/plus.svg" alt="" style="margin-right:200px;"></a>
@@ -41,7 +39,7 @@
 	  </div>
 		</div>
   <div id="site-content">
-    <form action="../app/updateTask.php?userID=<?php echo $user ?>&task=<?php echo $tID ?>" method="post">
+    <form action="../app/updateTask.php?task=<?php echo $tID ?>" method="post">
     <div>
         <label for="title">Title: </label>
         <input type="text" name="title" id="title" value="<?php echo $print[1] ?>" required>

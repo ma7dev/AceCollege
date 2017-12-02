@@ -1,0 +1,114 @@
+#site-header{
+  background: #56afa7;
+}
+#site-content {
+  margin-top: 44px;
+  height: 100%;
+  width: 35%;
+  min-width:35%;
+  max-width: 35%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.enroll-btn{
+  width: 100%;
+  padding: 7px 10px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #00E500;
+}
+.enroll-btn:hover {
+  background: #00B700
+}
+.enrolled-btn{
+  width: 100%;
+  padding: 7px 10px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #FF0000;
+}
+.enrolled-btn:hover {
+  background: #CC0000;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+th{
+  text-align: left;
+}
+h1{
+  text-align: center;
+}
+h2{
+  text-align: center;
+  color: rgba(0,0,0,0.5);
+  padding: 50px;
+  font: bold 2em Arial, sans-serif;
+}
+h2:before, h2:after {
+  padding: 50px;
+  color: rgba(255,255,255,.1);
+}
+h2:before {
+  top: 1px;
+  left: 1px
+}
+h2:after {
+  top: 2px;
+  left: 2px
+}
+.course-code {
+  background: rgba(0,0,0,0.5);
+  padding: 1px;
+  padding-right: 6px;
+  padding-left: 6px;
+  border-radius: 5px 5px 5px 5px;
+  margin-left: 5px;
+  margin-right: 25px;
+}
+.parent{
+  text-align: center;
+}
+#site-content input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+#site-content input[type=number], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+#site-content input[type=submit] {
+    width: 100%;
+    background-color: #56afa7;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#site-content input[type=submit]:hover {
+    background-color: #329999;
+}
+
+#site-content div {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}

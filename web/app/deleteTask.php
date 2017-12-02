@@ -1,9 +1,9 @@
 <?php
 		require_once '../app/init.php';
-	  $user = $_GET['userID'];
-	  $url = "../views/todos.php?userID=$user";
+	  $user = $_SESSION['user_id'];
+	  $url = "../views/todos.php?";
 // Assign the input to the proper variable.
-		$tID = $_GET['task'];
+		$tID = $_GET['taskID'];
 // Open the table to insert
 		$query = "DELETE FROM Tasks WHERE tID = $tID" ;
 		if(mysqli_query($conn, $query)){

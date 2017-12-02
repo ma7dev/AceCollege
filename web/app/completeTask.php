@@ -1,9 +1,9 @@
 <?php
   require_once 'init.php';
   $user = $_SESSION['user_id'];
-  $url = "../views/joinNewCourse.php?";
-  $course = $_GET['courseID'];
-  $query = "DELETE FROM Enrollment WHERE uID=$user AND cID=$course" ;
+  $url = "../views/todos.php?date=inbox-opt";
+  $tID = $_GET['taskID'];
+  $query = "UPDATE Tasks SET Completion = 'Y' WHERE uID = $user AND tID = $tID" ;
   if(mysqli_query($conn, $query)){
     echo "<script>window.location = '$url'</script>";
     exit;

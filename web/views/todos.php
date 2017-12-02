@@ -2,7 +2,7 @@
 	require_once '../app/init.php';
 	$dateSort = $_GET['date'];
 	$tagsSort = $_GET['tags'];
-	$user = $_GET['userID'];
+	$user = $_SESSION['user_id'];
 	if($user == NULL || $user == "" ){ ?>
 		<script type="text/javascript">
 			window.location.href ="index.php";
@@ -11,7 +11,7 @@
 	if(($dateSort == NULL && $dateSort == "") && ($tagsSort == NULL && $tagsSort == "")){
 		$dateSort = "inbox-opt";?>
 		<script type="text/javascript">
-			window.location.href ="todos.php?userID=<?php echo $user ?>&date=<?php echo $dateSort ?>";
+			window.location.href ="todos.php?date=<?php echo $dateSort ?>";
 		</script>
 	<?php }
 	$tagsSortAfter = NULL;
@@ -69,22 +69,24 @@
   <div id="site-header">
 		<div id="header-content">
 			<div id="logo">
-				<a href="todos.php?userID=<?php echo $user ?>"><img class="icon" src="../public/icons/spade.svg" alt=""></a>
+				<a href="todos.php?"><img class="icon" src="../public/icons/spade.svg" alt=""></a>
 			</div>
 	    <div id="navbar">
-				<a href="addNewTodo.php?userID=<?php echo $user ?>"><img class="icon" src="../public/icons/plus.svg" alt="" style="margin-right:200px;"></a>
-				<img id="settings-btn" class="icon" src="../public/icons/whmcs.svg" alt="">
-				<ul class="dropdown-content" style="list-style:none;">
-					<li id="editInfo-btn">Edit Personal Information</li>
-					<li id="logout-btn">Logout</li>
-				</ul>
+				<a href="addNewTodo.php?"><img class="icon" src="../public/icons/plus.svg" alt="" style="margin-right:200px;"></a>
+				<div class="dropdown">
+				  <span class="dropbtn click-btn"><img id="settings-btn" class="icon" src="../public/icons/whmcs.svg" alt=""></span>
+				  <div class="dropdown-content">
+				    <a class="click-btn" href="editInfo.php">Edit Personal Information</a>
+				    <a class="click-btn" href="../app/logout.php">Logout</a>
+				  </div>
+				</div>
 	    </div>
 	  </div>
 		</div>
   <div id="site-content">
 		<div id="secondary">
 			<div id="secondary-content">
-				<a href="studygroup.php?userID=<?php echo $user ?>">Go to Study Group Page</a>
+				<span id="switch-btn" class="click-btn"><a href="studygroup.php">Go to Study Group List Page</a></span>
 				<ul id="date-opt">
 					<li class="data-opt" id="inbox-opt"><img class="icon" src="../public/icons/inbox.svg" alt=""> Inbox</li>
 					<li class="data-opt" id="today-opt"><img class="icon" src="../public/icons/calendar.svg" alt=""> Today</li>
@@ -102,16 +104,17 @@
 					  <span class="tag-checkmark"></span>
 					</label>
 				<?php } ?>
+				<br>
 				<ul class="dropdown-content" style="list-style:none;">
-					<li id="joinNewCourse-btn">Join an Exciting Course</li>
-					<li id="addNewCourse-btn">Add a Course</li>
+					<li id="joinNewCourse-btn" class="click-btn">Join an Exciting Course</li><br>
+					<li id="addNewCourse-btn" class="click-btn">Add a Course</li>
 				</ul>
 				</div>
 			</div>
 		</div>
 		<div id="primary">
 			<div id="primary-content">
-				<form id="item-add" action="../app/addQuickTask.php?userID=<?php echo $user ?>" method="post">
+				<form id="item-add" action="../app/addQuickTask.php?" method="post">
 					<div id="item-input">
 						<input id="input-title" type="text" name="title" placeholder="Quick Add Task" autocomplete="off" required>
 						<input id="input-date" type="date" name="dateAssigned" placeholder="Schedule" autocomplete="off" required>
@@ -120,9 +123,15 @@
 				</form>
 		    <ul id="display-todos">
 					<?php while($row = mysqli_fetch_row($result)) { ?>
-			      <li class="todos-item">
+			      <li class="todos-item" id="<?php echo $row[0]?>">
 							<button class="complete-btn item-<?php echo $row[2]?>"></button>
 							<span class="item-details">
+								<?php $time = strtotime($row[3]) ?>
+								<?php if(date('Y',$time) == date("Y")){?>
+									<span class="item-date"><?php echo date('m/d',$time)?></span>
+								<?php }else{?>
+									<span class="item-date"><?php echo date('m/d/Y',$time)?></span>
+								<?php }?>
 								<span class="item-title"><?php echo $row[1]?></span>
 								<?php
 									if($row[4] != 'personal'){
@@ -134,18 +143,14 @@
 								<?php } else {?>
 									<span class="item-tag "><?php echo $row[4] ?></span>
 								<?php } ?>
-								<?php $time = strtotime($row[3]) ?>
-								<?php if(date('Y',$time) == date("Y")){?>
-									<span class="item-date"><?php echo date('m/d',$time)?></span>
-								<?php }else{?>
-									<span class="item-date"><?php echo date('m/d/Y',$time)?></span>
-								<?php }?>
 							</span>
-							<button class="list-btn"><img class="icon" src="../public/icons/ellipsis-h.svg" alt=""></button>
-							<ul class="dropdown-content" id="<?php echo $row[0] ?>">
-								<li class="edit-btn">Edit Task</li>
-								<li class="remove-btn">Remove Task</li>
-							</ul>
+							<div class="dropdown">
+							  <span class="dropbtn click-btn"><img class="icon" src="../public/icons/ellipsis-h.svg" alt=""></span>
+							  <div class="dropdown-content" id="<?php echo $row[0] ?>">
+							    <a class="click-btn edit-btn" href="#">Edit Task</a>
+							    <a class="click-btn remove-btn" href="#">Remove Task</a>
+							  </div>
+							</div>
 			      </li>
 					<?php }?>
 		    </ul>
@@ -156,18 +161,26 @@
 		var removeBtn = document.querySelectorAll(".remove-btn");
 		for (var i = 0; i < removeBtn.length; i++) {
 	    removeBtn[i].addEventListener('click', function(){
-				var removeByID = $(this).closest('ul').attr('id');
-				window.location.href = "../app/deleteTask.php?userID=<?php echo $user ?>&taskID=" +removeByID;
+				var removeByID = $(this).closest('div').attr('id');
+				window.location.href = "../app/deleteTask.php?taskID=" +removeByID;
 	    });
 		}
 
 		var editBtn = document.querySelectorAll(".edit-btn");
 		for (var i = 0; i < editBtn.length; i++) {
 		   editBtn[i].addEventListener('click', function(){
-				var editByID = $(this).closest('ul').attr('id');
-				window.location.href = "editTask.php?userID=<?php echo $user ?>&taskID=" +editByID;
+				var editByID = $(this).closest('div').attr('id');
+				window.location.href = "editTask.php?taskID=" +editByID;
 		   });
 		}
+
+		var completeBtn = document.querySelectorAll(".complete-btn");
+		for (var i = 0; i < completeBtn.length; i++) {
+			completeBtn[i].addEventListener('click', function(){
+				var completeByID = $(this).closest('li').attr('id');
+				window.location.href = "../app/completeTask.php?taskID=" +completeByID;
+			});
+	  }
 
 		<?php if(($tagsSort != NULL || $tagsSort != "")){ ?>
 			<?php if(strpos($tagsSort, ',')){ ?>
@@ -194,17 +207,17 @@
 					<?php $tagsSortAfter = explode(",", $tagsSort); ?>
 				<?php } ?>
 				<?php if(is_array($tagsSortAfter)){ ?>
-					var urlWanted = "todos.php?userID=<?php echo $user ?>&date=" +dateOptBtnByID+"&tags=<?php echo $tagsSortAfter[0] ?>";
+					var urlWanted = "todos.php?date=" +dateOptBtnByID+"&tags=<?php echo $tagsSortAfter[0] ?>";
 					<?php for($i = 1; $i < count($tagsSortAfter); $i++){ ?>
 			      var tags = "<?php echo $tagsSortAfter[$i] ?>";
 						urlWanted = urlWanted + "," + tags;
 					<?php } ?>
 					window.location.href = urlWanted;
 				<?php }else if(($tagsSort != NULL && $tagsSort != "")){ ?>
-					var urlWanted = "todos.php?userID=<?php echo $user ?>&date=" +dateOptBtnByID+"&tags=<?php echo $tagsSort ?>";
+					var urlWanted = "todos.php?date=" +dateOptBtnByID+"&tags=<?php echo $tagsSort ?>";
 					window.location.href = urlWanted;
 				<?php }else{ ?>
-					var urlWanted = "todos.php?userID=<?php echo $user ?>&date=" +dateOptBtnByID;
+					var urlWanted = "todos.php?date=" +dateOptBtnByID;
 					window.location.href = urlWanted;
 				<?php } ?>
 		   });
@@ -224,14 +237,14 @@
 			<?php if(is_array($tagsSortAfter)){ ?>
 				var goalFind = "<?php echo $tagsSortAfter[0] ?>";
 				if(goalFind == tagsOptBtnByID){
-					var urlWanted = "todos.php?userID=<?php echo $user ?>&date=" +date+"&tags=<?php echo $tagsSortAfter[1] ?>";
+					var urlWanted = "todos.php?date=" +date+"&tags=<?php echo $tagsSortAfter[1] ?>";
 					<?php for($i = 2; $i < count($tagsSortAfter); $i++){ ?>
 				     var tags = "<?php echo $tagsSortAfter[$i] ?>";
 						urlWanted = urlWanted + "," + tags;
 					<?php } ?>
 					window.location.href = urlWanted;
 				}
-				var urlWanted = "todos.php?userID=<?php echo $user ?>&date=" +date+"&tags=<?php echo $tagsSortAfter[0] ?>";
+				var urlWanted = "todos.php?date=" +date+"&tags=<?php echo $tagsSortAfter[0] ?>";
 				<?php for($i = 1; $i < count($tagsSortAfter); $i++){ ?>
 					var goalFind = "<?php echo $tagsSortAfter[$i] ?>";
 					if(goalFind != tagsOptBtnByID){
@@ -250,38 +263,33 @@
 				var goalFind = "<?php echo $tagsSort ?>";
 				var urlWanted = "";
 				if(goalFind == tagsOptBtnByID){
-					urlWanted = "todos.php?userID=<?php echo $user ?>&date=" +date;
+					urlWanted = "todos.php?date=" +date;
 				}
 				else {
-					urlWanted = "todos.php?userID=<?php echo $user ?>&date=" +date+"&tags=<?php echo $tagsSort ?>,"+tagsOptBtnByID;
+					urlWanted = "todos.php?date=" +date+"&tags=<?php echo $tagsSort ?>,"+tagsOptBtnByID;
 				}
 				window.location.href = urlWanted;
 			<?php }else { ?>
-				var urlWanted = "todos.php?userID=<?php echo $user ?>&date=" +date+"&tags="+tagsOptBtnByID;
+				var urlWanted = "todos.php?date=" +date+"&tags="+tagsOptBtnByID;
 				window.location.href = urlWanted;
 			<?php } ?>
 		 });
-		 var editInfoBtn = document.getElementById("editInfo-btn");
-		 editInfoBtn.addEventListener('click', function(){
-			 var urlWanted = "editInfo.php?userID=<?php echo $user ?>";
-			 window.location.href = urlWanted;
-		 });
-		 var logoutBtn = document.getElementById("logout-btn");
-		 logoutBtn.addEventListener('click', function(){
-			 var urlWanted = "index.php";
-			 window.location.href = urlWanted;
-		 });
 		 var joinCourseBtn = document.getElementById("joinNewCourse-btn");
 		 joinCourseBtn.addEventListener('click', function(){
-			 var urlWanted = "joinNewCourse.php?userID=<?php echo $user ?>";
+			 var urlWanted = "joinNewCourse.php";
 			 window.location.href = urlWanted;
 		 });
 		 var addCourseBtn = document.getElementById("addNewCourse-btn");
 		 addCourseBtn.addEventListener('click', function(){
-			 var urlWanted = "addNewCourse.php?userID=<?php echo $user ?>";
+			 var urlWanted = "addNewCourse.php";
 			 window.location.href = urlWanted;
 		 });
-		}
+	 }
+		var switchBtn = document.getElementById("switch-btn");
+		switchBtn.addEventListener('click', function(){
+			var urlWanted = "studygroup.php";
+			window.location.href = urlWanted;
+		});
 	</script>
 </body>
 </html>

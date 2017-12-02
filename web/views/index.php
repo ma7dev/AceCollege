@@ -7,15 +7,19 @@
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
   <link rel="stylesheet" href="../public/css/main.css">
-	<link rel="stylesheet" href="../public/css/home.css">
+	<link rel="stylesheet" href="../public/css/user.css">
 </head>
 <body>
   <div id="site-header">
+  		<div id="header-content">
+			<div id="logo">
+				<img class="icon" src="../public/icons/spade.svg" alt="">
+			</div>
 
   </div>
   <div id="site-content">
     <form action="../app/signup.php" method="post" autocomplete="off">
-    	<h2> Sign Up </h2>
+    	<h1> Sign Up </h1>
     	<p>
             <label for="email">Email:</label>
             <input type="email" name="email" id="email" value="" placeholder="john@gmail.com" required>
@@ -32,11 +36,11 @@
             <label for="birthday">Birthday(optional):</label>
             <input type="date" name="birthday" value=""   id="birthday">
         </p>
-        <input type="submit" value="Submit">
+        <input type="submit" value="Sign Up">
         <br></br>
     </form>
     <form action="../app/login.php" method="post" autocomplete="off">
-      <h2>Login</h2>
+      <h1>Login</h1>
     <p>
         <label for="uID">Email: </label>
         <input type="email" name="uID" id="uID"  value="" placeholder="john@gmail.com"  required>
@@ -45,7 +49,7 @@
         <label for="password">Password: </label>
         <input type="password" name="password" id="password" value="" placeholder="password"   required>
     </p>
-    <input type="submit" value="Submit">
+    <input type="submit" value="Login">
     <br></br>
     </form>
   </div>

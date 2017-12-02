@@ -1,7 +1,7 @@
 <?php
 
 	require_once '../app/init.php';
-	$user = $_GET['userID'];
+	$user = $_SESSION['user_id'];
   $courses = "SELECT Courses.cID, Courses.Department, Courses.CourseCode  FROM Courses, Enrollment WHERE Courses.cID = Enrollment.cID AND Enrollment.uID = $user";
 	$coursesResult = mysqli_query($conn, $courses);
 	if (!$coursesResult) {
@@ -23,7 +23,7 @@
   <div id="site-header">
 		<div id="header-content">
 			<div id="logo">
-				<a href="todos.php?userID=<?php echo $user ?>"><img class="icon" src="../public/icons/spade.svg" alt=""></a>
+				<a href="studygroup.php?"><img class="icon" src="../public/icons/spade.svg" alt=""></a>
 			</div>
 	    <div id="navbar">
 				<a href="addNewTodo.php"><img class="icon" src="../public/icons/plus.svg" alt="" style="margin-right:200px;"></a>
@@ -32,37 +32,40 @@
 	  </div>
 		</div>
   <div id="site-content">
-    <form action="../app/insertStudyGroup.php?userID=<?php echo $user ?>" method="post">
-	    <div>
-	        <label for="title">Title: </label>
-	        <input type="text" name="title" id="title" required>
-	    </div>
-	    <div>
-	        <label for="dateAssigned">Date Assigned:</label>
-	        <input type="date" name="dateAssigned" id="dateAssigned" required>
-	    </div>
-	    <div>
-	        <label for="tag">Course:</label> <br>
-					<?php $first = 0; ?>
-					<?php while($coursesRow = mysqli_fetch_row($coursesResult)) { ?>
-							<?php if($first == 0){ ?>
-								<?php $first = 1; ?>
-								<input type="radio" name="tag" value="<?php echo $coursesRow[0]?>" required checked> <?php echo "$coursesRow[1]-$coursesRow[2]"?><br>
-							<?php }else{ ?>
-	            	<input type="radio" name="tag" value="<?php echo $coursesRow[0]?>"> <?php echo "$coursesRow[1]-$coursesRow[2]"?><br>
-							<?php } ?>
-	        <?php } ?>
-	    </div>
-	    <div>
-	        <label for="description">Description:</label>
-	        <input type="text" name="description" id="description" placeholder="This meeting will cover midterm exam only">
-	    </div>
-	    <div>
-	        <label for="location">Location:</label>
-	        <input type="text" name="location" id="location" placeholder="LINC 361" required>
-	    </div>
-	    <input type="submit" value="Submit">
-		</form>
+		<div id="add-sg">
+			<h1>Add a Study Group</h1>
+	    <form action="../app/insertStudyGroup.php?" method="post" autocomplete="off">
+		    <div>
+		        <label for="title">Title: </label>
+		        <input type="text" name="title" id="title"  placeholder="Midterm Study Session" required>
+		    </div>
+		    <div>
+		        <label for="dateAssigned">Date Assigned:</label>
+		        <input type="date" name="dateAssigned" id="dateAssigned" required>
+		    </div>
+		    <div>
+		        <label for="tag">Course:</label> <br>
+						<?php $first = 0; ?>
+						<?php while($coursesRow = mysqli_fetch_row($coursesResult)) { ?>
+								<?php if($first == 0){ ?>
+									<?php $first = 1; ?>
+									<input type="radio" name="tag" value="<?php echo $coursesRow[0]?>" required checked> <?php echo "$coursesRow[1]-$coursesRow[2]"?><br>
+								<?php }else{ ?>
+		            	<input type="radio" name="tag" value="<?php echo $coursesRow[0]?>"> <?php echo "$coursesRow[1]-$coursesRow[2]"?><br>
+								<?php } ?>
+		        <?php } ?>
+		    </div>
+		    <div>
+		        <label for="description">Description:</label>
+		        <input type="text" name="description" id="description" placeholder="This meeting will cover midterm exam only">
+		    </div>
+		    <div>
+		        <label for="location">Location:</label>
+		        <input type="text" name="location" id="location" placeholder="LINC 361" required>
+		    </div>
+		    <input type="submit" value="Submit">
+			</form>
+		</div>
   </div>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <?php
 		require_once '../app/init.php';
-	  $user = $_GET['userID'];
-	  $url = "../views/studygroup.php?userID=$user";
+	  $user = $_SESSION['user_id'];
+	  $url = "../views/studygroup.php?";
 // Assign the input to the proper variable.
 		$title = mysqli_real_escape_string($conn, $_POST['title']);
 		$dateAssigned = mysqli_real_escape_string($conn, $_POST['dateAssigned']);

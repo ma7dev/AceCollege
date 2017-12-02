@@ -1,7 +1,7 @@
 <?php
 		require_once '../app/init.php';
-	  $user = $_GET['userID'];
-	  $url = '../views/todos.php?userID=$user';
+	  $user = $_SESSION['user_id'];
+	  $url = '../views/todos.php?';
 // Assign the input to the proper variable.
     $tID = $_GET['task'];
 		$title = mysqli_real_escape_string($conn, $_POST['title']);

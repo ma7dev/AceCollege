@@ -14,7 +14,7 @@
 		else {
 			if ($tuple[1] == sha1($password.$tuple[2])) {
 				$_SESSION['user_id'] = $tuple[4];
-				 $url = "../views/todos.php?userID=". $tuple[4] ."&date=inbox-opt";
+				 $url = "../views/todos.php?date=inbox-opt";
         echo "<script>window.location = '$url'</script>";
         exit;
 			}

@@ -7,7 +7,6 @@
   width: 950px;
   min-width:950px;
   max-width: 950px;
-  margin-top: 44px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -94,7 +93,7 @@
 
 /* When the checkbox is checked, add a blue background */
 .tag-opt input:checked ~ .tag-checkmark {
-    background-color: #2196F3;
+    background-color: #DE5D52;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -212,7 +211,7 @@
 #display-todos .item-details {
 	border-bottom: 1px solid #DDDDDD;
 	padding: 5px;
-	width: auto;
+  font-size: 110%;
 }
 #display-todos .item-tag {
 	background: rgba(50,50,255,0.5);
@@ -220,12 +219,13 @@
 	border-radius: 5px 5px 5px 5px;
 }
 #display-todos .item-date {
-	background: rgba(0,0,0,0.5);
-	padding: 1px;
-	border-radius: 5px 5px 5px 5px;
+  font-size: 120%;
+	font-weight: bold;
+  margin-right: 10px;
+  text-align: center;
 }
 .list-btn .icon{
-	/*display: hidden;*/
+	/*display: none;*/
 	margin-left: auto;
 	width: 20px;
 	min-width: 20px;
@@ -233,4 +233,116 @@
 	height: 20px;
 	min-height: 20px;
 	max-height: 20px;
+}
+
+h1{
+  text-align: center;
+}
+#site-content input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px 4px 4px 0;
+    box-sizing: border-box;
+}
+#site-content input[type=date], select {
+    width: 100%;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+#add-todo input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+#add-todo input[type=date], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+#add-todo input[type=number], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+#add-todo input[type=submit] {
+    width: 100%;
+    background-color: #DB4C3F;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#add-todo input[type=submit]:hover {
+    background-color: #AF3C32;
+}
+#site-header .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+#site-header .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+#site-header .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+#site-header .dropdown-content a:hover {background-color: #f1f1f1}
+
+#site-header .dropdown:hover .dropdown-content {
+    display: block;
+}
+#primary .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+#primary .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+#primary .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+#primary .dropdown-content a:hover {background-color: #f1f1f1}
+
+#primary .dropdown:hover .dropdown-content {
+    display: block;
 }

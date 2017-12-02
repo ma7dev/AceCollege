@@ -1,7 +1,7 @@
 <?php
 		require_once '../app/init.php';
-	  $user = $_GET['userID'];
-	  $url = "../views/todos.php?userID=". $user ."&date=inbox-opt";
+	  $user = $_SESSION['user_id'];
+	  $url = "../views/todos.php?date=inbox-opt";
 // Assign the input to the proper variable.
 		$email = mysqli_real_escape_string($conn, $_POST['email']);
 		$name = mysqli_real_escape_string($conn, $_POST['name']);
