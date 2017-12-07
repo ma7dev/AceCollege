@@ -76,7 +76,7 @@
 					<tr class="enroll-opt" id="<?php echo $checkIn[0]?>">
 			            <th><span class="course-title"><?php echo "$checkIn[1]"?></span></th>
 			            <th class="parent"><span class="course-code"><?php echo "$checkIn[2]-$checkIn[3]"?></span></th>
-						<th class="parent"><button type="button" name="button" class="enroll-btn">Enroll</button></th>
+						<th class="parent"><button type="button" name="button" class="enrolled-btn">Enrolled</button></th>
 			        </tr>
 					<?php while($coursesRowIn = mysqli_fetch_row($coursesResultIn)) { ?>
 						<tr class="enrolled-opt" id="<?php echo $coursesRowIn[0]?>">
