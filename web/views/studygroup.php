@@ -268,21 +268,23 @@
 					<?php } ?>
 					window.location.href = urlWanted;
 				}
-				var urlWanted = "studygroup.php?date=" +date+"&tags=<?php echo $tagsSortAfter[0] ?>";
-				<?php for($i = 1; $i < count($tagsSortAfter); $i++){ ?>
-					var goalFind = "<?php echo $tagsSortAfter[$i] ?>";
-					if(goalFind != tagsOptBtnByID){
-				     var tags = "<?php echo $tagsSortAfter[$i] ?>";
-						urlWanted = urlWanted + "," + tags;
+			  	else {
+					var urlWanted = "studygroup.php?date=" +date+"&tags=<?php echo $tagsSortAfter[0] ?>";
+					<?php for($i = 1; $i < count($tagsSortAfter); $i++){ ?>
+						var goalFind = "<?php echo $tagsSortAfter[$i] ?>";
+						if(goalFind != tagsOptBtnByID){
+					     var tags = "<?php echo $tagsSortAfter[$i] ?>";
+							urlWanted = urlWanted + "," + tags;
+						}
+						else {
+							removed = true;
+						}
+					<?php } ?>
+					if(removed != true){
+						urlWanted = urlWanted + "," + tagsOptBtnByID;
 					}
-					else {
-						removed = true;
-					}
-				<?php } ?>
-				if(removed != true){
-					urlWanted = urlWanted + "," + tagsOptBtnByID;
+					window.location.href = urlWanted;
 				}
-				window.location.href = urlWanted;
 			<?php }else if(($tagsSort != NULL && $tagsSort != "")){ ?>
 				var goalFind = "<?php echo $tagsSort ?>";
 				var urlWanted = "";
