@@ -180,7 +180,7 @@
 				var completeByID = $(this).closest('li').attr('id');
 				window.location.href = "../app/completeTask.php?taskID=" +completeByID;
 			});
-	  }
+	    }
 
 		<?php if(($tagsSort != NULL || $tagsSort != "")){ ?>
 			<?php if(strpos($tagsSort, ',')){ ?>
@@ -227,53 +227,67 @@
 
 		var tagOptBtn = document.querySelectorAll(".tag-opt");
 		for (var i = 0; i < tagOptBtn.length; i++) {
-		  tagOptBtn[i].addEventListener('click', function(){
-		  var tagsOptBtnByID = $(this).attr('id');
-			var date = "<?php echo $dateSort ?>";
-			var removed = false;
-			<?php if(strpos($tagsSort, ',')){ ?>
-				<?php $tagsSortAfter = explode(",", $tagsSort); ?>
-			<?php } ?>
-			<?php if(is_array($tagsSortAfter)){ ?>
-				var goalFind = "<?php echo $tagsSortAfter[0] ?>";
-				if(goalFind == tagsOptBtnByID){
-					var urlWanted = "todos.php?date=" +date+"&tags=<?php echo $tagsSortAfter[1] ?>";
-					<?php for($i = 2; $i < count($tagsSortAfter); $i++){ ?>
-				     var tags = "<?php echo $tagsSortAfter[$i] ?>";
-						urlWanted = urlWanted + "," + tags;
-					<?php } ?>
-					window.location.href = urlWanted;
-				}
-				var urlWanted = "todos.php?date=" +date+"&tags=<?php echo $tagsSortAfter[0] ?>";
-				<?php for($i = 1; $i < count($tagsSortAfter); $i++){ ?>
-					var goalFind = "<?php echo $tagsSortAfter[$i] ?>";
-					if(goalFind != tagsOptBtnByID){
-				     var tags = "<?php echo $tagsSortAfter[$i] ?>";
-						urlWanted = urlWanted + "," + tags;
+			tagOptBtn[i].addEventListener('click', function(){
+   				var tagsOptBtnByID = $(this).attr('id');
+				var date = "<?php echo $dateSort ?>";
+				var removed = false;
+				<?php if(strpos($tagsSort, ',')){ ?>
+					<?php $tagsSortAfter = explode(",", $tagsSort); ?>
+				<?php } else {?>
+
+				console.log("tagsSort=<?php echo $tagsSort ?>");
+				<?php } ?>
+
+				<?php if(is_array($tagsSortAfter)){ ?>
+					var goalFind = "<?php echo $tagsSortAfter[0] ?>";
+					if(goalFind == tagsOptBtnByID){
+						var urlWanted = "todos.php?date=" +date+"&tags=<?php echo $tagsSortAfter[1] ?>";
+						console.log(urlWanted);
+						<?php for($i = 2; $i < count($tagsSortAfter); $i++){ ?>
+					     var tags = "<?php echo $tagsSortAfter[$i] ?>";
+							urlWanted = urlWanted + "," + tags;
+						<?php } ?>
+						console.log(urlWanted);
+						window.location.href = urlWanted;
 					}
 					else {
-						removed = true;
+						var urlWanted = "todos.php?date=" +date+"&tags=<?php echo $tagsSortAfter[0] ?>";
+						<?php for($i = 1; $i < count($tagsSortAfter); $i++){ ?>
+							var goalFind = "<?php echo $tagsSortAfter[$i] ?>";
+							if(goalFind != tagsOptBtnByID){
+						     var tags = "<?php echo $tagsSortAfter[$i] ?>";
+								urlWanted = urlWanted + "," + tags;
+							}
+							else {
+								removed = true;
+							}
+						<?php } ?>
+							if(removed != true){
+								urlWanted = urlWanted + "," + tagsOptBtnByID;
+							}
+							window.location.href = urlWanted;
 					}
+					
+				<?php }else if(($tagsSort != NULL && $tagsSort != "")){ ?>
+					var goalFind = "<?php echo $tagsSort ?>";
+					var urlWanted = "";
+					if(goalFind == tagsOptBtnByID){
+						urlWanted = "todos.php?date=" +date;
+					}
+					else {
+						urlWanted = "todos.php?date=" +date+"&tags=<?php echo $tagsSort ?>,"+tagsOptBtnByID;
+					}
+					window.location.href = urlWanted;
+
+					
+				<?php }else { ?>
+					var urlWanted = "todos.php?date=" +date+"&tags="+tagsOptBtnByID;
+					window.location.href = urlWanted;
 				<?php } ?>
-				if(removed != true){
-					urlWanted = urlWanted + "," + tagsOptBtnByID;
-				}
+
+
 				window.location.href = urlWanted;
-			<?php }else if(($tagsSort != NULL && $tagsSort != "")){ ?>
-				var goalFind = "<?php echo $tagsSort ?>";
-				var urlWanted = "";
-				if(goalFind == tagsOptBtnByID){
-					urlWanted = "todos.php?date=" +date;
-				}
-				else {
-					urlWanted = "todos.php?date=" +date+"&tags=<?php echo $tagsSort ?>,"+tagsOptBtnByID;
-				}
-				window.location.href = urlWanted;
-			<?php }else { ?>
-				var urlWanted = "todos.php?date=" +date+"&tags="+tagsOptBtnByID;
-				window.location.href = urlWanted;
-			<?php } ?>
-		 });
+			});
 		 var joinCourseBtn = document.getElementById("joinNewCourse-btn");
 		 joinCourseBtn.addEventListener('click', function(){
 			 var urlWanted = "joinNewCourse.php";

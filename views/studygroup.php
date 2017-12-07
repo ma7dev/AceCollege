@@ -75,10 +75,10 @@
 			</div>
 	    <div id="navbar">
 				<a href="addNewStudyGroup.php?"><img class="icon" src="../public/icons/plus.svg" alt="" style="margin-right:200px;"></a>
-				<span class="click-btn"><img id="settings-btn" class="icon" src="../public/icons/whmcs.svg" alt=""></span>
+				<img id="settings-btn" class="icon" src="../public/icons/whmcs.svg" alt="">
 				<ul class="dropdown-content" style="list-style:none;">
-					<li id="editInfo-btn" class="click-btn">Edit Personal Information</li>
-					<li id="logout-btn" class="click-btn">Logout</li>
+					<li id="editInfo-btn">Edit Personal Information</li>
+					<li id="logout-btn">Logout</li>
 				</ul>
 	    </div>
 	  </div>
@@ -86,7 +86,7 @@
   <div id="site-content">
 		<div id="secondary">
 			<div id="secondary-content">
-				<span id="switch-btn" class="click-btn"><a href="todos.php">Go to To-do List Page</a></span>
+				<a href="todos.php?">Go to To-do List Page</a>
 				<ul id="date-opt">
 					<li class="data-opt" id="inbox-opt"><img class="icon" src="../public/icons/inbox.svg" alt=""> Inbox</li>
 					<li class="data-opt" id="today-opt"><img class="icon" src="../public/icons/calendar.svg" alt=""> Today</li>
@@ -100,10 +100,9 @@
 					  <span class="tag-checkmark"></span>
 					</label>
 				<?php } ?>
-				<br>
 				<ul class="dropdown-content" style="list-style:none;">
-					<li id="joinNewCourse-btn" class="click-btn">Join an Exciting Course</li><br>
-					<li id="addNewCourse-btn" class="click-btn">Add a Course</li>
+					<li id="joinNewCourse-btn">Join an Exciting Course</li>
+					<li id="addNewCourse-btn">Add a Course</li>
 				</ul>
 				</div>
 			</div>
@@ -140,8 +139,8 @@
 								<button class="list-btn"><img class="icon" src="../public/icons/ellipsis-h.svg" alt=""></button>
 								<ul class="dropdown-content" id="<?php echo $row[0] ?>">
 									<?php if($user == $row[1]) { ?>
-										<li class="edit-btn click-btn">Edit Study Group</li>
-										<li class="remove-btn click-btn">Remove Study Group</li>
+										<li class="edit-btn">Edit Study Group</li>
+										<li class="remove-btn">Remove Study Group</li>
 									<?php }else{?>
 										<?php
 											$getStatus = "SELECT Invite.status FROM Invite WHERE Invite.sgID = $row[0] AND Invite.uID = $user";
@@ -152,12 +151,12 @@
 											$getStatusName = mysqli_fetch_row($getStatusName);
 										?>
 										<?php if($getStatusName[0] == 0 || $getStatusName[0] == 1){ ?>
-											<li class="join-btn click-btn">Join Study Group</li>
+											<li class="join-btn">Join Study Group</li>
 										<?php }else if($getStatusName[0] == 2){?>
-											<li class="leave-btn click-btn">Leave Study Group</li>
+											<li class="leave-btn">Leave Study Group</li>
 										<?php }?>
 									<?php }?>
-									<!--<li class="invite-btn">Invite Someone</li>-->
+									<li class="invite-btn">Invite Someone</li>
 								</ul>
 				      </li>
 						<?php }?>
@@ -199,13 +198,13 @@
 		   });
 		}
 
-		/*var inviteBtn = document.querySelectorAll(".invite-btn");
+		var inviteBtn = document.querySelectorAll(".invite-btn");
 		for (var i = 0; i < inviteBtn.length; i++) {
 		   inviteBtn[i].addEventListener('click', function(){
 				var inviteBtnByID = $(this).closest('ul').attr('id');
 				window.location.href = "inviteStudyGroup.php?sgID=" +inviteBtnByID;
 		   });
-		}*/
+		}
 
 		<?php if(($tagsSort != NULL || $tagsSort != "")){ ?>
 			<?php if(strpos($tagsSort, ',')){ ?>
@@ -269,21 +268,23 @@
 					<?php } ?>
 					window.location.href = urlWanted;
 				}
-				var urlWanted = "studygroup.php?date=" +date+"&tags=<?php echo $tagsSortAfter[0] ?>";
-				<?php for($i = 1; $i < count($tagsSortAfter); $i++){ ?>
-					var goalFind = "<?php echo $tagsSortAfter[$i] ?>";
-					if(goalFind != tagsOptBtnByID){
-				     var tags = "<?php echo $tagsSortAfter[$i] ?>";
-						urlWanted = urlWanted + "," + tags;
+			  	else {
+					var urlWanted = "studygroup.php?date=" +date+"&tags=<?php echo $tagsSortAfter[0] ?>";
+					<?php for($i = 1; $i < count($tagsSortAfter); $i++){ ?>
+						var goalFind = "<?php echo $tagsSortAfter[$i] ?>";
+						if(goalFind != tagsOptBtnByID){
+					     var tags = "<?php echo $tagsSortAfter[$i] ?>";
+							urlWanted = urlWanted + "," + tags;
+						}
+						else {
+							removed = true;
+						}
+					<?php } ?>
+					if(removed != true){
+						urlWanted = urlWanted + "," + tagsOptBtnByID;
 					}
-					else {
-						removed = true;
-					}
-				<?php } ?>
-				if(removed != true){
-					urlWanted = urlWanted + "," + tagsOptBtnByID;
+					window.location.href = urlWanted;
 				}
-				window.location.href = urlWanted;
 			<?php }else if(($tagsSort != NULL && $tagsSort != "")){ ?>
 				var goalFind = "<?php echo $tagsSort ?>";
 				var urlWanted = "";
@@ -301,7 +302,7 @@
 		 });
 		 var editInfoBtn = document.getElementById("editInfo-btn");
 		 editInfoBtn.addEventListener('click', function(){
-			 var urlWanted = "editInfo.php";
+			 var urlWanted = "editInfo.php?";
 			 window.location.href = urlWanted;
 		 });
 		 var logoutBtn = document.getElementById("logout-btn");
@@ -311,15 +312,16 @@
 		 });
 		 var joinCourseBtn = document.getElementById("joinNewCourse-btn");
 		 joinCourseBtn.addEventListener('click', function(){
-			 var urlWanted = "joinNewCourse.php";
+			 var urlWanted = "joinNewCourse.php?";
 			 window.location.href = urlWanted;
 		 });
 		 var addCourseBtn = document.getElementById("addNewCourse-btn");
 		 addCourseBtn.addEventListener('click', function(){
-			 var urlWanted = "addNewCourse.php";
+			 var urlWanted = "addNewCourse.php?";
 			 window.location.href = urlWanted;
 		 });
 		}
+		console.log( <?php echo "$getStatusName[0]" ?> )
 	</script>
 </body>
 </html>

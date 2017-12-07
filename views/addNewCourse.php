@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Add a Course - AceCollege</title>
+  <title>Add New Course - AceCollege</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
@@ -26,9 +26,7 @@
 	  </div>
 		</div>
   <div id="site-content">
-		<br>
-		<h1>Add a Course</h1>
-    <form action="../app/insertCourse.php?" method="post" autocomplete="off">
+    <form action="../app/insertCourse.php?" method="post">
 	    <div>
 	        <label for="Title">Title: </label>
 	        <input type="text" name="Title" id="Title" required>

@@ -1,0 +1,236 @@
+#site-header{
+  background: #DB4C3F;
+}
+#site-content {
+  margin-top: 44px;
+  height: 100%;
+  width: 950px;
+  min-width:950px;
+  max-width: 950px;
+  margin-top: 44px;
+  margin-left: auto;
+  margin-right: auto;
+}
+#secondary {
+  float:left;
+  position: fixed;
+  height: 100%;
+  width: 260px;
+  max-width: 260px;
+  background: #FAFAFA;
+}
+#secondary-content {
+  margin-left: 30px;
+  margin-top: 30px;
+}
+#primary {
+  float: left;
+  margin-left: 260px;
+  height: 100%;
+  background: #FFFFFF;
+  width: 640px;
+  min-width: 640px;
+  max-width: 640px;
+  padding-left: 50px;
+  padding-top: 50px;
+  border-left: solid 1px #F1F1F1;
+  border-right: solid 1px #F1F1F1;
+}
+#date-opt{
+	list-style: none;
+}
+#date-opt li {
+	margin-top: 5px;
+	padding: 5px;
+	text-decoration: none;
+	font: black;
+}
+#date-opt li img{
+	margin-right: 3px;
+}
+#date-opt li:hover{
+	background: white;
+	cursor: pointer;
+}
+#date-opt .active{
+	background: white;
+	font-weight: bolder;
+}
+#tags-opt{
+
+}
+.tag-opt {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+/* Hide the browser's default checkbox */
+.tag-opt input {
+    position: absolute;
+    opacity: 0;
+}
+
+/* Create a custom checkbox */
+.tag-checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.tag-opt:hover input ~ .tag-checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.tag-opt input:checked ~ .tag-checkmark {
+    background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.tag-checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.tag-opt input:checked ~ .tag-checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.tag-opt .tag-checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+#item-input{
+	width: 100%;
+	min-width: 100%;
+	max-width: 100%;
+}
+#item-input input{
+	min-height: 25px;
+	height: 25px;
+	max-height: 25px;
+}
+
+#item-add button {
+	background-color: #DD4B39;
+  border: 1px solid #DD4B39;
+  text-decoration: none;
+  cursor: pointer;
+	padding: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-radius: 0 0 5px 5px;
+}
+#item-add button:hover {
+	background-color: #B22323;
+  border: 1px solid #B22323;
+}
+#input-title{
+	width: 420px;
+	min-width: 420px;
+	max-width: 420px;
+}
+#input-date{
+	width: 150px;
+	min-width: 150px;
+	max-width: 150px;
+}
+#display-todos li{
+	list-style: none;
+	width: 100%;
+}
+#display-todos button {
+	background-color: transparent;
+  border: none;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+#display-todos .complete-btn {
+	border-radius: 100%;
+	width: 20px;
+	min-width: 20px;
+	max-width: 20px;
+	height: 20px;
+	min-height: 20px;
+	max-height: 20px;
+	margin-right: 5px;
+}
+#display-todos .todos-item .item-1{
+	background-color: #F5E5E5;
+	border: 2px solid #AD0303;
+}
+#display-todos .todos-item .item-1:hover{
+	background-color: #e7c0c0;
+}
+#display-todos .todos-item .item-2{
+	background-color: #FEF2E8;
+	border: 2px solid #F98F37;
+}
+#display-todos .todos-item .item-2:hover{
+	background-color: #fcd6b7;
+}
+#display-todos .todos-item .item-3{
+	background-color: #FFF6E1;
+	border: 2px solid #FCC12B;
+}
+#display-todos .todos-item .item-3:hover{
+	background-color: #ffe7ae;
+}
+#display-todos .todos-item .item-4{
+	background-color: white;
+	border: 2px solid #DDDDDD;
+}
+#display-todos .todos-item .item-4:hover{
+	background-color: #f1f1f1;
+}
+#display-todos .todos-item {
+	margin-bottom: 12px;
+	width: 100%;
+}
+#display-todos .item-details {
+	border-bottom: 1px solid #DDDDDD;
+	padding: 5px;
+	width: auto;
+}
+#display-todos .item-tag {
+	background: rgba(50,50,255,0.5);
+	padding: 1px;
+	border-radius: 5px 5px 5px 5px;
+}
+#display-todos .item-date {
+	background: rgba(0,0,0,0.5);
+	padding: 1px;
+	border-radius: 5px 5px 5px 5px;
+}
+.list-btn .icon{
+	/*display: hidden;*/
+	margin-left: auto;
+	width: 20px;
+	min-width: 20px;
+	max-width: 20px;
+	height: 20px;
+	min-height: 20px;
+	max-height: 20px;
+}

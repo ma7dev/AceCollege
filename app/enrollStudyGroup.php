@@ -1,7 +1,7 @@
 <?php
   require_once 'init.php';
   $user = $_SESSION['user_id'];
-  $url = "../views/studygroup.php";
+  $url = "../views/studygroup.php?";
   $studyGroup = $_GET['sgID'];
   $query = "UPDATE Invite SET status = 2 WHERE uID = $user AND sgID = $studyGroup" ;
   if(mysqli_query($conn, $query)){

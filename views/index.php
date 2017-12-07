@@ -19,7 +19,7 @@
   </div>
   <div id="site-content">
     <form action="../app/signup.php" method="post" autocomplete="off">
-    	<h1> Sign Up </h1>
+    	<h2> Sign Up </h2>
     	<p>
             <label for="email">Email:</label>
             <input type="email" name="email" id="email" value="" placeholder="john@gmail.com" required>
@@ -36,11 +36,11 @@
             <label for="birthday">Birthday(optional):</label>
             <input type="date" name="birthday" value=""   id="birthday">
         </p>
-        <input type="submit" value="Sign Up">
+        <input type="submit" value="Submit">
         <br></br>
     </form>
     <form action="../app/login.php" method="post" autocomplete="off">
-      <h1>Login</h1>
+      <h2>Login</h2>
     <p>
         <label for="uID">Email: </label>
         <input type="email" name="uID" id="uID"  value="" placeholder="john@gmail.com"  required>
@@ -49,7 +49,7 @@
         <label for="password">Password: </label>
         <input type="password" name="password" id="password" value="" placeholder="password"   required>
     </p>
-    <input type="submit" value="Login">
+    <input type="submit" value="Submit">
     <br></br>
     </form>
   </div>

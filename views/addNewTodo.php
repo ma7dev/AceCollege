@@ -1,12 +1,7 @@
 <?php
+
 	require_once '../app/init.php';
 	$user = $_SESSION['user_id'];
-	$query = "SELECT ID, Email, Name, Birthday, Password  FROM Users WHERE ID = $user";
-	$result = mysqli_query($conn, $query);
-	if (!$result) {
-		die("Query to show fields from table failed");
-	}
-  $print = mysqli_fetch_row($result);
   $courses = "SELECT Courses.cID, Courses.Department, Courses.CourseCode  FROM Courses, Enrollment WHERE Courses.cID = Enrollment.cID AND Enrollment.uID = $user";
 	$coursesResult = mysqli_query($conn, $courses);
 	if (!$coursesResult) {
@@ -16,13 +11,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Edit Information - AceCollege</title>
+  <title>Todo list - AceCollege</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
   <link rel="stylesheet" href="../public/css/main.css">
-	<link rel="stylesheet" href="../public/css/user.css">
+	<link rel="stylesheet" href="../public/css/todos.css">
 </head>
 <body>
   <div id="site-header">
@@ -37,28 +32,31 @@
 	  </div>
 		</div>
   <div id="site-content">
-		<h1>Edit your Info.</h1>
-    <form action="../app/updateInfo.php?" method="post">
-    <div>
-        <label for="email">Email: </label>
-        <input type="email" name="email" id="email" value="<?php echo $print[1] ?>" required>
-    </div>
-    <div>
-        <label for="name">Name:</label>
-        <input type="text" name="name" id="name" value="<?php echo $print[2] ?>" required>
-    </div>
-    <div>
-        <label for="birthday">Birthday:</label>
-        <input type="date" name="birthday" id="birthday" value="<?php echo $print[3] ?>" required>
-    </div>
-    <div>
-		    <label for="passwordNew">Password(new):</label>
-		    <input pattern=".{6,}" title="6 characters minimum" type="password" name="passwordNew" id="passwordNew" required>
-		</div>
-    <input type="submit" value="Submit">
-
-    <br></br>
-    </form>
+    <form action="../app/insertTask.php?" method="post">
+	    <div>
+	        <label for="title">Title: </label>
+	        <input type="text" name="title" id="title" required>
+	    </div>
+	    <div>
+	        <label for="dateAssigned">Date Assigned:</label>
+	        <input type="date" name="dateAssigned" id="dateAssigned" required>
+	    </div>
+	    <div>
+	        <label for="tag">Tag:</label> <br>
+	        <input type="radio" name="tag" value="personal" required checked> Personal<br>
+					<?php while($coursesRow = mysqli_fetch_row($coursesResult)) { ?>
+	            <input type="radio" name="tag" value="<?php echo $coursesRow[0]?>"> <?php echo "$coursesRow[1]-$coursesRow[2]"?><br>
+	        <?php } ?>
+	    </div>
+	    <div>
+	        <label for="description">Description:</label>
+	        <input type="text" name="description" id="description">
+	    </div>
+	    <div>
+	        <label for="magnitude">Magnitude (1-4):</label><input type="number" name="magnitude" min="1" max="4" value="4" required>
+	    </div>
+	    <input type="submit" value="Submit">
+		</form>
   </div>
 </body>
 </html>

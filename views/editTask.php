@@ -2,8 +2,9 @@
 	require_once '../app/init.php';
 	// This will changed to loged in user ID.
 	$user = $_SESSION['user_id'];
-  $tID = $_GET['taskID'];
-	$query = "SELECT tID, Title, DateAssigned, tag, Description, Magnitude  FROM Tasks WHERE tID = $tID";
+	$table = Tasks;
+  $tID = $_GET['task'];
+	$query = "SELECT tID, Title, DateAssigned, tag, Description, Magnitude  FROM $table WHERE tID = $tID";
 	$result = mysqli_query($conn, $query);
 	if (!$result) {
 		die("Query to show fields from table failed");
@@ -18,7 +19,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Edit a Task - AceCollege</title>
+  <title>Todo list - AceCollege</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
