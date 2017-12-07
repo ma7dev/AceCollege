@@ -249,6 +249,31 @@
 		var dateSelected = document.getElementById("<?php echo $dateSort ?>");
 		dateSelected.classList.add('active');
 
+		var editInfoBtn = document.getElementById("editInfo-btn");
+		editInfoBtn.addEventListener('click', function(){
+		var urlWanted = "editInfo.php?";
+			 window.location.href = urlWanted;
+		});
+
+		var logoutBtn = document.getElementById("logout-btn");
+		logoutBtn.addEventListener('click', function(){
+			 var urlWanted = "../app/logout.php";
+			 window.location.href = urlWanted;
+		});
+		 
+		var joinCourseBtn = document.getElementById("joinNewCourse-btn");
+		joinCourseBtn.addEventListener('click', function(){
+			 var urlWanted = "joinNewCourse.php?";
+			 window.location.href = urlWanted;
+		});
+		 
+		var addCourseBtn = document.getElementById("addNewCourse-btn");
+		addCourseBtn.addEventListener('click', function(){
+			 var urlWanted = "addNewCourse.php?";
+			 window.location.href = urlWanted;
+		});
+
+
 		var tagOptBtn = document.querySelectorAll(".tag-opt");
 		for (var i = 0; i < tagOptBtn.length; i++) {
 		  tagOptBtn[i].addEventListener('click', function(){
@@ -299,26 +324,6 @@
 				var urlWanted = "studygroup.php?date=" +date+"&tags="+tagsOptBtnByID;
 				window.location.href = urlWanted;
 			<?php } ?>
-		 });
-		 var editInfoBtn = document.getElementById("editInfo-btn");
-		 editInfoBtn.addEventListener('click', function(){
-			 var urlWanted = "editInfo.php?";
-			 window.location.href = urlWanted;
-		 });
-		 var logoutBtn = document.getElementById("logout-btn");
-		 logoutBtn.addEventListener('click', function(){
-			 var urlWanted = "../app/logout.php";
-			 window.location.href = urlWanted;
-		 });
-		 var joinCourseBtn = document.getElementById("joinNewCourse-btn");
-		 joinCourseBtn.addEventListener('click', function(){
-			 var urlWanted = "joinNewCourse.php?";
-			 window.location.href = urlWanted;
-		 });
-		 var addCourseBtn = document.getElementById("addNewCourse-btn");
-		 addCourseBtn.addEventListener('click', function(){
-			 var urlWanted = "addNewCourse.php?";
-			 window.location.href = urlWanted;
 		 });
 		}
 		console.log( <?php echo "$getStatusName[0]" ?> )
