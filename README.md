@@ -1,34 +1,19 @@
-# ♠ College [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=♠%20College%20App%20&url=https://acecollege.herokuapp.com&via=iamalotaibi&hashtags=WebApp,Productivity)
-Is a task manager on the web that aims to help college students with their personal and courses' tasks in a simple and affective way.
+# AceCollege (archived)
 
-## Getting Started
+AceCollege was a CS340 group project: a small PHP and MariaDB task manager for
+college students. It is preserved as a historical student project and is no
+longer deployed or maintained.
 
-* Signup/login in https://acecollege.herokuapp.com
-* Use the app
+## Important security notice
 
-## Built With
+This code uses outdated dependencies and password-handling practices. Do not
+deploy it or use it as a reference for production authentication. The original
+Heroku application is no longer available.
 
-* [JavaSript](https://www.javascript.com/) - Front-end
-* [PHP](https://secure.php.net/) - Back-end
-* [MariaDB](https://mariadb.org/) - Datebase
+## Original stack
 
-## Contributing
+- JavaScript and CSS frontend
+- PHP backend
+- MariaDB database
 
-Please read [CONTRIBUTING.md]() for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Authors
-
-* **Mazen Alotaibi** - [iamalotaibi](https://github.com/iamalotaibi)
-* **Paul Lee** - [Trugger198](https://github.com/Trugger198)
-
-See also the list of [contributors](https://github.com/iamalotaibi/AceCollege/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+Authors: Mazen Alotaibi and Paul Lee.
